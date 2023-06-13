@@ -2,26 +2,28 @@
 
 import { useCallback } from "react";
 import { FaFeather } from "react-icons/fa";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-// import useLoginModal from "@/hooks/useLoginModal";
+import useLoginModal from "@/hooks/useLoginModal";
 // import useCurrentUser from "@/hooks/useCurrentUser";
 
 const SidebarTweetButton = () => {
-  //   const router = useRouter();
-  //   const loginModal = useLoginModal();
+  const router = useRouter();
+  const loginModal = useLoginModal();
   //   const { data: currentUser } = useCurrentUser();
 
-  //   const onClick = useCallback(() => {
-  //     if (!currentUser) {
-  //       return loginModal.onOpen();
-  //     }
+  const currentUser = null;
 
-  //     router.push("/");
-  //   }, [loginModal, router, currentUser]);
+  const onClick = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    router.push("/");
+  }, [loginModal, router, currentUser]);
 
   return (
-    <div onClick={() => {}}>
+    <div onClick={onClick}>
       <div className="flex items-center justify-center p-4 mt-6 transition rounded-full cursor-pointer lg:hidden h-14 w-14 bg-sky-500 hover:bg-opacity-80">
         <FaFeather size={24} color="white" />
       </div>

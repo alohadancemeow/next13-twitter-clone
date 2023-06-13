@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import ModalProvider from "@/providers/ModalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ModalProvider />
         <Layout>{children}</Layout>
       </body>
     </html>
