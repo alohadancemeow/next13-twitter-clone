@@ -1,6 +1,6 @@
 "use client";
 
-// import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -22,10 +22,10 @@ const LoginModal = () => {
     try {
       setIsLoading(true);
 
-      //   await signIn("credentials", {
-      //     email,
-      //     password,
-      //   });
+      await signIn("credentials", {
+        email,
+        password,
+      });
 
       toast.success("Logged in");
 

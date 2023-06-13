@@ -1,6 +1,10 @@
+import { getSession } from "@/actions/getCurrentUser";
 import Header from "@/components/Header";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getSession();
+  console.log("session", session);
+
   return (
     <main>
       <>

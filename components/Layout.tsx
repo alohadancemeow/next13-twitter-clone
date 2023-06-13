@@ -3,13 +3,19 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import FollowBar from "./FollowBar";
+import { User } from "@prisma/client";
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+  currentUser?: User | null;
+};
+
+const Layout: React.FC<Props> = ({ children, currentUser }) => {
   return (
     <div className="h-screen bg-black">
       <div className="container h-full max-w-6xl mx-auto xl:px-30">
         <div className="grid h-full grid-cols-4">
-          <Sidebar />
+          <Sidebar currentUser={currentUser} />
           <div
             className="
               col-span-3 

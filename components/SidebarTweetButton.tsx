@@ -3,16 +3,17 @@
 import { useCallback } from "react";
 import { FaFeather } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { User } from "@prisma/client";
 
 import useLoginModal from "@/hooks/useLoginModal";
-// import useCurrentUser from "@/hooks/useCurrentUser";
 
-const SidebarTweetButton = () => {
+type Props = {
+  currentUser?: User | null;
+};
+
+const SidebarTweetButton = ({ currentUser }: Props) => {
   const router = useRouter();
   const loginModal = useLoginModal();
-  //   const { data: currentUser } = useCurrentUser();
-
-  const currentUser = null;
 
   const onClick = useCallback(() => {
     if (!currentUser) {

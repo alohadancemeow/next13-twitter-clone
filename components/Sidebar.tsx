@@ -1,20 +1,20 @@
 "use client";
 
-// import { signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { BiLogOut } from "react-icons/bi";
 import { BsHouseFill, BsBellFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 
-// import useCurrentUser from "@/hooks/useCurrentUser";
-
 import SidebarItem from "./SidebarItem";
 import SidebarLogo from "./SidebarLogo";
 import SidebarTweetButton from "./SidebarTweetButton";
+import { User } from "@prisma/client";
 
-const Sidebar = () => {
-  //   const { data: currentUser } = useCurrentUser();
-  const currentUser: any = null;
+type Props = {
+  currentUser?: User | null;
+};
 
+const Sidebar = ({ currentUser }: Props) => {
   const items = [
     {
       icon: BsHouseFill,
@@ -26,7 +26,7 @@ const Sidebar = () => {
       label: "Notifications",
       href: "/notifications",
       auth: true,
-      alert: currentUser?.hasNotification,
+      alert: currentUser?.hasNotification!,
     },
     {
       icon: FaUser,
@@ -49,12 +49,17 @@ const Sidebar = () => {
               href={item.href}
               icon={item.icon}
               label={item.label}
+              currentUser={currentUser}
             />
           ))}
           {currentUser && (
-            <SidebarItem onClick={() => {}} icon={BiLogOut} label="Logout" />
+            <SidebarItem
+              onClick={() => signOut()}
+              icon={BiLogOut}
+              label="Logout"
+            />
           )}
-          <SidebarTweetButton />
+          <SidebarTweetButton currentUser={currentUser} />
         </div>
       </div>
     </div>
