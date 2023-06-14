@@ -8,9 +8,12 @@ import { User } from "@prisma/client";
 type Props = {
   children: React.ReactNode;
   currentUser?: User | null;
+  users?: User[] | null;
 };
 
-const Layout: React.FC<Props> = ({ children, currentUser }) => {
+const Layout: React.FC<Props> = async ({ children, currentUser, users }) => {
+  console.log("users", users);
+
   return (
     <div className="h-screen bg-black">
       <div className="container h-full max-w-6xl mx-auto xl:px-30">
@@ -26,7 +29,7 @@ const Layout: React.FC<Props> = ({ children, currentUser }) => {
           >
             {children}
           </div>
-          <FollowBar />
+          <FollowBar users={users} />
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import getCurrentUser from "@/actions/getCurrentUser";
+import getUsers from "@/actions/getUsers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +18,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // #TODO: get current user
   const currentUser = await getCurrentUser();
+  const users = await getUsers();
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <ToasterProvider />
         <ModalProvider />
-        <Layout currentUser={currentUser}>{children}</Layout>
+        <Layout currentUser={currentUser} users={users}>
+          {children}
+        </Layout>
       </body>
     </html>
   );
