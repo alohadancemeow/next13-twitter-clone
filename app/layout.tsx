@@ -25,7 +25,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ToasterProvider />
-        <ModalProvider />
+        <ModalProvider currentUser={currentUser} />
         <Layout currentUser={currentUser} users={users}>
           {children}
         </Layout>
