@@ -3,25 +3,26 @@ import { useCallback, useMemo } from "react";
 import { toast } from "react-hot-toast";
 
 import useLoginModal from "./useLoginModal";
-import { User } from "@prisma/client";
+
+import { Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  userId: string;
+  post: Post;
   currentUser?: User | null;
 };
 
-const useFollow = ({ userId, currentUser }: Props) => {
+const useLike = ({ post, currentUser }: Props) => {
   const router = useRouter();
   const loginModal = useLoginModal();
 
-  const isFollowing = useMemo(() => {
-    const list = currentUser?.followingIds || [];
+  const hasLiked = useMemo(() => {
+    const list = post?.likedIds || [];
 
-    return list.includes(userId);
-  }, [currentUser, userId]);
+    return list.includes(currentUser?.id!);
+  }, [post, currentUser]);
 
-  const toggleFollow = useCallback(async () => {
+  const toggleLike = useCallback(async () => {
     if (!currentUser) {
       return loginModal.onOpen();
     }
@@ -29,24 +30,25 @@ const useFollow = ({ userId, currentUser }: Props) => {
     try {
       let request;
 
-      if (isFollowing) {
-        request = () => axios.delete(`/api/follow/${userId}`);
+      if (hasLiked) {
+        request = () => axios.delete(`/api/posts/${post.id}`);
       } else {
-        request = () => axios.post(`/api/follow/${userId}`);
+        request = () => axios.post(`/api/posts/${post.id}`);
       }
 
       await request();
+
       router.refresh();
       toast.success("Success");
     } catch (error) {
       toast.error("Something went wrong");
     }
-  }, [currentUser, isFollowing, userId, loginModal, router]);
+  }, [currentUser, hasLiked, post.id, loginModal]);
 
   return {
-    isFollowing,
-    toggleFollow,
+    hasLiked,
+    toggleLike,
   };
 };
 
-export default useFollow;
+export default useLike;

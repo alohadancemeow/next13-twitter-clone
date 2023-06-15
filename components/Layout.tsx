@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = async ({ children, currentUser, users }) => {
-  console.log("users", users);
+  // console.log("users", users);
 
   return (
     <div className="h-screen bg-black">

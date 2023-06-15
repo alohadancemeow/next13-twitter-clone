@@ -8,9 +8,10 @@ import { BiCalendar } from "react-icons/bi";
 import { format } from "date-fns";
 import useFollow from "@/hooks/useFollow";
 import useEditModal from "@/hooks/useEditModal";
+import { UserWithFollowersCount } from "@/types";
 
 type Props = {
-  user?: User | null;
+  user?: UserWithFollowersCount | null;
   currentUser?: User | null;
 };
 
@@ -62,7 +63,7 @@ const UserBio = ({ user, currentUser }: Props) => {
             <p className="text-neutral-500">Following</p>
           </div>
           <div className="flex flex-row items-center gap-1">
-            {/* <p className="text-white">{user?.followersCount || 0}</p> */}
+            <p className="text-white">{user?.followersCount || 0}</p>
             <p className="text-neutral-500">Followers</p>
           </div>
         </div>
