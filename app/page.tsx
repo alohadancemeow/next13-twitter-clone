@@ -7,7 +7,6 @@ import PostFeed from "@/components/PostFeed";
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
-
   const posts = await getPosts();
 
   return (

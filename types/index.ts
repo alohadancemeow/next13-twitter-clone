@@ -18,3 +18,9 @@ export type PostWithCommentProps = Prisma.PostGetPayload<{
 export type UserWithFollowersCount = User & {
   followersCount: number;
 };
+
+export type CommemtWtihUser = Prisma.CommentGetPayload<{
+  include: {
+    user: true;
+  };
+}>;
