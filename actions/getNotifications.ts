@@ -14,6 +14,9 @@ const getNoitfications = async (userId: string) => {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        user: true
+      }
     });
 
     // update user

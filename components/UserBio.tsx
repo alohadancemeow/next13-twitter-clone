@@ -39,7 +39,13 @@ const UserBio = ({ user, currentUser }: Props) => {
         ) : (
           <Button
             onClick={toggleFollow}
-            label={isFollowing ? "Unfollow" : "Follow"}
+            label={
+              isFollowing
+                ? "Unfollow"
+                : user?.followingIds.includes(currentUser?.id!)
+                ? "Follow Back"
+                : "Follow"
+            }
             secondary={!isFollowing}
             outline={isFollowing}
           />
