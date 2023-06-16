@@ -12,8 +12,6 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = async ({ children, currentUser, users }) => {
-  // console.log("users", users);
-
   return (
     <div className="h-screen bg-black">
       <div className="container h-full max-w-6xl mx-auto xl:px-30">

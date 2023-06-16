@@ -1,5 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import prisma from "@/libs/prismadb";
+import { Comment } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -7,7 +8,7 @@ export async function POST(
   { params }: { params: { postId: string } }
 ) {
   const { postId } = params;
-  const commentBody = await request.json();
+  const commentBody: Comment = await request.json();
 
   const { body } = commentBody;
 
@@ -39,6 +40,28 @@ export async function POST(
   });
 
   //   TODO: Notification here
+
+  try {
+    if (post?.userId) {
+      await prisma.notification.create({
+        data: {
+          body: "Someone replied on your tweet!",
+          userId: post.userId,
+        },
+      });
+
+      await prisma.user.update({
+        where: {
+          id: post.userId,
+        },
+        data: {
+          hasNotification: true,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 
   return NextResponse.json(comment);
 }

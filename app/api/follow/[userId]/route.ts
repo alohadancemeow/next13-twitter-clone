@@ -25,8 +25,6 @@ export async function POST(
     throw new Error("Invalid ID");
   }
 
-  //   TODO: Notification here
-
   const updatedUser = await prisma.user.update({
     where: {
       id: currentUser.id,
@@ -37,6 +35,27 @@ export async function POST(
       },
     },
   });
+
+  //   TODO: Notification here
+  try {
+    await prisma.notification.create({
+      data: {
+        body: "Someone followed you!",
+        userId,
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        hasNotification: true,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   return NextResponse.json(updatedUser);
 }
