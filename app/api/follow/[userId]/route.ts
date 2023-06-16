@@ -85,14 +85,12 @@ export async function DELETE(
     throw new Error("Invalid ID");
   }
 
-  let updatedFollowingIds = [...(user.followingIds || [])];
-
   const updatedUser = await prisma.user.update({
     where: {
       id: currentUser.id,
     },
     data: {
-      followingIds: updatedFollowingIds.filter(
+      followingIds: currentUser.followingIds.filter(
         (followingId) => followingId !== userId
       ),
     },
